@@ -509,7 +509,7 @@ class ViewController: UIViewController {
         isDaCham=true
         kiemTraNhapDau1Lan(pheptinh:"÷")
         pressResult=false
-             isMoNgoac=true
+        isMoNgoac=true
         chinhLable()
         }
     }
@@ -521,7 +521,7 @@ class ViewController: UIViewController {
         isDaCham=true
         kiemTraNhapDau1Lan(pheptinh:"X")
         pressResult=false
-             isMoNgoac=true
+        isMoNgoac=true
         chinhLable()
         }
     }
@@ -530,9 +530,9 @@ class ViewController: UIViewController {
         {
         isDaCham=true
         kiemTraNhapDau1Lan(pheptinh:"-")
-              pressResult=false
+        pressResult=false
         chinhLable()
-             isMoNgoac=true
+        isMoNgoac=true
         }
     }
     @IBAction func btnCongAction(_ sender: Any) {
@@ -542,7 +542,7 @@ class ViewController: UIViewController {
         kiemTraNhapDau1Lan(pheptinh:"+")
         pressResult=false
         chinhLable()
-             isMoNgoac=true
+        isMoNgoac=true
         }
     }
     
