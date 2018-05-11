@@ -45,7 +45,7 @@ class ViewController: UIViewController {
             demMoNgoac-=1;
         }
         result()
-            }
+    }
     }
     
     
@@ -242,6 +242,8 @@ class ViewController: UIViewController {
             print("ketqua:"+String(ketqua))
             lbKetQua.text=String(ketqua)
             pressResult=true
+            isMoNgoac=true
+            demMoNgoac=0
         }
         }
     }
