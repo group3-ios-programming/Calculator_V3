@@ -29,7 +29,7 @@ class ViewController: UIViewController {
     var isMoNgoac:Bool=true
     var isDaCham:Bool=true
     var operators="+-*/"
-    
+    var pressResult:Bool=false
     @IBAction func btnResultAction(_ sender: Any) {
         
         let last1 = String(lbKetQua.text!.characters.suffix(1))
@@ -76,6 +76,7 @@ class ViewController: UIViewController {
         }
         }
         chinhLable()
+        pressResult=false
         }
     }
     
@@ -95,6 +96,7 @@ class ViewController: UIViewController {
         }
         isDaCham=false
         chinhLable()
+        pressResult=false
         }
     }
     
@@ -239,6 +241,7 @@ class ViewController: UIViewController {
             ketqua=Double(stackTinh.top!)!
             print("ketqua:"+String(ketqua))
             lbKetQua.text=String(ketqua)
+            pressResult=true
         }
         }
     }
@@ -273,6 +276,17 @@ class ViewController: UIViewController {
         }
         return false
     }
+    
+    func checkMoNgoacLast(chuoi:String)->Bool
+    {
+        let lastChar = String(chuoi.characters.suffix(1))
+        if (lastChar=="(")
+        {
+            return true
+        }
+        return false
+    }
+    
     
     func checkLaToanHang(chuoi:String) -> Bool
     {
@@ -368,6 +382,7 @@ class ViewController: UIViewController {
             
         }
         chinhLable()
+        pressResult=false
         }
     }
     @IBAction func btnXoaAction(_ sender: Any) {
@@ -421,6 +436,7 @@ class ViewController: UIViewController {
             isDaCham=true
         }
         chinhLable()
+          pressResult=false
     }
     
     
@@ -474,33 +490,40 @@ class ViewController: UIViewController {
     }
     
     @IBAction func btnChiaAction(_ sender: Any) {
-        if(checkFullSize())
+        if(checkFullSize()&&checkMoNgoacLast(chuoi: lbKetQua.text!)==false)
         {
         isDaCham=true
         kiemTraNhapDau1Lan(pheptinh:"÷")
+        pressResult=false
         chinhLable()
         }
     }
 
     
     @IBAction func btnNhanAction(_ sender: Any) {
+        if(checkFullSize()&&checkMoNgoacLast(chuoi: lbKetQua.text!)==false)
+        {
         isDaCham=true
         kiemTraNhapDau1Lan(pheptinh:"X")
+          pressResult=false
         chinhLable()
+        }
     }
     @IBAction func btnTruAction(_ sender: Any) {
-        if(checkFullSize())
+        if(checkFullSize()&&checkMoNgoacLast(chuoi: lbKetQua.text!)==false)
         {
         isDaCham=true
         kiemTraNhapDau1Lan(pheptinh:"-")
+              pressResult=false
         chinhLable()
         }
     }
     @IBAction func btnCongAction(_ sender: Any) {
-        if(checkFullSize())
+        if(checkFullSize()&&checkMoNgoacLast(chuoi: lbKetQua.text!)==false)
         {
         isDaCham=true
         kiemTraNhapDau1Lan(pheptinh:"+")
+              pressResult=false
         chinhLable()
         }
     }
@@ -510,16 +533,19 @@ class ViewController: UIViewController {
          lbKetQua.text="0"
          demMoNgoac=0
          isDaCham=true
+        isMoNgoac=true
+        pressResult=false
         chinhLable()
     }
     @IBAction func btnNumberAction(_ sender: Any) {
         if(checkFullSize())
         {
-        if (lbKetQua.text == "0")
+        if (lbKetQua.text == "0"||pressResult==true)
         {
             
             lbKetQua.text=""
             lbKetQua.text = lbKetQua.text! + String((sender as AnyObject).tag - 1)
+            pressResult=false
             
         }
         else
@@ -527,6 +553,7 @@ class ViewController: UIViewController {
             if(checkNhanTruocDongNgoac(chuoi: lbKetQua.text!))
             {
                 lbKetQua.text=String(lbKetQua.text!)+"X("+String((sender as AnyObject).tag - 1)
+                pressResult=false
                 demMoNgoac+=1
             }
             else
@@ -535,10 +562,14 @@ class ViewController: UIViewController {
                 if(checkPress0(input: lbKetQua.text!))
                 {
                     lbKetQua.text=String(lbKetQua.text!.characters.dropLast())
-                lbKetQua.text = lbKetQua.text! + String((sender as AnyObject).tag - 1)                  }
+                lbKetQua.text = lbKetQua.text! + String((sender as AnyObject).tag - 1)
+                    pressResult=false
+}
                 else
                 {
-                    lbKetQua.text = lbKetQua.text! + String((sender as AnyObject).tag - 1)                }
+                    lbKetQua.text = lbKetQua.text! + String((sender as AnyObject).tag - 1)
+                    pressResult=false
+}
             }
         }
       
