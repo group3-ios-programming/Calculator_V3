@@ -166,7 +166,7 @@ class ViewController: UIViewController {
     {
         let last1 = String(input.characters.suffix(1))
         let last2 = String(input.characters.suffix(2))
-        if(last1=="+"||last1=="-"||last1=="*"||last1=="/"||last1=="("||last2=="()")
+        if(last1=="+"||last1=="-"||last1=="*"||last1=="/"||last1=="("||last2=="()"||last2=="((")
         {
             return true
         }
@@ -187,6 +187,9 @@ class ViewController: UIViewController {
         inputVL=inputVL!.replacingOccurrences(of: "X", with: "*")
         inputVL=inputVL!.replacingOccurrences(of: "÷", with: "/")
         inputVL=inputVL!.replacingOccurrences(of: "(-", with: "(0-")
+        
+       
+        
         if(checkKhongHopLe(input: inputVL!)){
             showToast(message: "Ký tự cuối không hợp lệ")
         }
@@ -310,7 +313,16 @@ class ViewController: UIViewController {
             return false;
     }
     
-   
+    
+    func checkKyTuAmDauTieu(chuoi:String)->Bool
+    {
+        let char=chuoi.characters.first
+        if(char=="-")
+        {
+            return true
+        }
+        return false
+    }
     
     func checkDongNgoac(chuoi:String)->Bool
     {
@@ -497,6 +509,7 @@ class ViewController: UIViewController {
         isDaCham=true
         kiemTraNhapDau1Lan(pheptinh:"÷")
         pressResult=false
+             isMoNgoac=true
         chinhLable()
         }
     }
@@ -507,7 +520,8 @@ class ViewController: UIViewController {
         {
         isDaCham=true
         kiemTraNhapDau1Lan(pheptinh:"X")
-          pressResult=false
+        pressResult=false
+             isMoNgoac=true
         chinhLable()
         }
     }
@@ -518,6 +532,7 @@ class ViewController: UIViewController {
         kiemTraNhapDau1Lan(pheptinh:"-")
               pressResult=false
         chinhLable()
+             isMoNgoac=true
         }
     }
     @IBAction func btnCongAction(_ sender: Any) {
@@ -525,8 +540,9 @@ class ViewController: UIViewController {
         {
         isDaCham=true
         kiemTraNhapDau1Lan(pheptinh:"+")
-              pressResult=false
+        pressResult=false
         chinhLable()
+             isMoNgoac=true
         }
     }
     
@@ -581,6 +597,7 @@ class ViewController: UIViewController {
             isMoNgoac=false
         }
         chinhLable()
+            
         }
     }
     override func viewDidLoad() {
