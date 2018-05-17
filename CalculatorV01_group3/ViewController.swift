@@ -64,7 +64,7 @@ class ViewController: UIViewController {
             let lastChar = String(lbKetQua.text!).characters.suffix(1)
             if(String(lastChar)==")")
             {
-                lbKetQua.text! = lbKetQua.text!+"X(-"
+                lbKetQua.text! = lbKetQua.text!+"×(-"
                 demMoNgoac+=1
             }
             else
@@ -149,7 +149,7 @@ class ViewController: UIViewController {
         
         let last2 = String(input.characters.suffix(2))
         let check1="÷0"
-        let check2="X0"
+        let check2="×0"
         let check3="-0"
         let check4="+0"
         let check5="(0"
@@ -184,7 +184,7 @@ class ViewController: UIViewController {
         var ketqua=0.0
        
      
-        inputVL=inputVL!.replacingOccurrences(of: "X", with: "*")
+        inputVL=inputVL!.replacingOccurrences(of: "×", with: "*")
         inputVL=inputVL!.replacingOccurrences(of: "÷", with: "/")
         inputVL=inputVL!.replacingOccurrences(of: "(-", with: "(0-")
         
@@ -210,13 +210,14 @@ class ViewController: UIViewController {
             
             result=result.trimmingCharacters(in: .whitespacesAndNewlines) //Xoa khoang trang thua
             tinhToan = result.components(separatedBy: " ") // cat chuoi theo tung khoang trang
-            for i in 0..<tinhToan.count
+            for var i in 0..<tinhToan.count
             {
                 if(operators.contains(tinhToan[i])){
-                    var num1:Double=Double(stackTinh.pop()!)!
-                    var num2:Double=Double(stackTinh.pop()!)!
+                    let num1:Double=Double(stackTinh.pop()!)!
+                    let num2:Double=Double(stackTinh.pop()!)!
+                    var chia0=false
                     var num=0.0
-                    var s=tinhToan[i]
+                    let s=tinhToan[i]
                     switch (s)
                     {
                     case "+":
@@ -229,12 +230,25 @@ class ViewController: UIViewController {
                         num = num2 * num1;
                         break;
                     case "/":
+                        if(num1==0)
+                        {
+                            showToast(message: "Lỗi chia 0")
+                            lbKetQua.text="0"
+                            chia0=true
+                        }else
+                        {
                         num = num2 / num1;
+                        }
                         break;
                     default:
                         break;
                     }
                     stackTinh.push(String(num))
+                    if(chia0==true)
+                    {
+                        break
+                    }
+                
                 }
                 else
                 {
@@ -265,7 +279,7 @@ class ViewController: UIViewController {
     
     func checkFullSize()->Bool
     {
-        if(lbKetQua.text!.characters.count<30)
+        if(lbKetQua.text!.characters.count<45)
         {
             return true
         }
@@ -296,7 +310,7 @@ class ViewController: UIViewController {
     func checkLaToanHang(chuoi:String) -> Bool
     {
         let lastChar = String(chuoi.characters.suffix(1))
-        if (lastChar=="X" || lastChar=="-" || lastChar=="+" || lastChar=="÷"||lastChar=="("||lastChar==")")
+        if (lastChar=="×" || lastChar=="-" || lastChar=="+" || lastChar=="÷"||lastChar=="("||lastChar==")")
         {
             return true
         }
@@ -306,7 +320,7 @@ class ViewController: UIViewController {
     func checkMoNgoac(chuoi:String)->Bool
     {
             let lastChar = String(chuoi.characters.suffix(1))
-            if(lastChar=="1" || lastChar=="2" || lastChar=="3" || lastChar=="4"||lastChar=="5" || lastChar=="6" || lastChar=="7" || lastChar=="8"||lastChar=="9" || lastChar=="0"||lastChar=="+" || lastChar=="-" || lastChar=="X" || lastChar=="÷"||lastChar=="."||lastChar=="("||(lastChar==")"&&demMoNgoac==0))
+            if(lastChar=="1" || lastChar=="2" || lastChar=="3" || lastChar=="4"||lastChar=="5" || lastChar=="6" || lastChar=="7" || lastChar=="8"||lastChar=="9" || lastChar=="0"||lastChar=="+" || lastChar=="-" || lastChar=="×" || lastChar=="÷"||lastChar=="."||lastChar=="("||(lastChar==")"&&demMoNgoac==0))
             {
                 return true;
             }
@@ -365,12 +379,12 @@ class ViewController: UIViewController {
                 }
                 if(kiemTraTruocDolaSo(chuoi:lbKetQua.text!))
                 {
-                    lbKetQua.text=lbKetQua.text!+"X("
+                    lbKetQua.text=lbKetQua.text!+"×("
                 }
                 else{
                     if(checkNhanTruocDongNgoac(chuoi: lbKetQua.text!)&&demMoNgoac==0)
                     {
-                        lbKetQua.text=lbKetQua.text!+"X("
+                        lbKetQua.text=lbKetQua.text!+"×("
                     }
                     else
                     {
@@ -423,7 +437,7 @@ class ViewController: UIViewController {
             }
             else
             {
-                if(String(lastChar)=="+"||String(lastChar)=="-"||String(lastChar)=="X"||String(lastChar)=="÷")
+                if(String(lastChar)=="+"||String(lastChar)=="-"||String(lastChar)=="×"||String(lastChar)=="÷")
                 {
                     if (isDaCham == true) {
                         isDaCham = true;
@@ -457,7 +471,7 @@ class ViewController: UIViewController {
     func laPhepTinh(pheptinh:String) -> Bool
     {
         let lastChar = String(pheptinh.characters.suffix(1))
-        if(lastChar=="+" || lastChar=="-" || lastChar=="X" || lastChar=="÷" )
+        if(lastChar=="+" || lastChar=="-" || lastChar=="×" || lastChar=="÷" )
         {
             return true;
         }
@@ -519,7 +533,7 @@ class ViewController: UIViewController {
         if(checkFullSize()&&checkMoNgoacLast(chuoi: lbKetQua.text!)==false)
         {
         isDaCham=true
-        kiemTraNhapDau1Lan(pheptinh:"X")
+        kiemTraNhapDau1Lan(pheptinh:"×")
         pressResult=false
         isMoNgoac=true
         chinhLable()
@@ -570,7 +584,7 @@ class ViewController: UIViewController {
         {
             if(checkNhanTruocDongNgoac(chuoi: lbKetQua.text!))
             {
-                lbKetQua.text=String(lbKetQua.text!)+"X("+String((sender as AnyObject).tag - 1)
+                lbKetQua.text=String(lbKetQua.text!)+"×("+String((sender as AnyObject).tag - 1)
                 pressResult=false
                 demMoNgoac+=1
             }
