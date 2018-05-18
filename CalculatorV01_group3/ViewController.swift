@@ -257,6 +257,7 @@ class ViewController: UIViewController {
             }
             ketqua=Double(stackTinh.top!)!
             print("ketqua:"+String(ketqua))
+            lbKetQua.font=UIFont.systemFont(ofSize: 50.0)
             lbKetQua.text=String(ketqua)
             pressResult=true
             isMoNgoac=true
@@ -269,7 +270,14 @@ class ViewController: UIViewController {
     {
         if(lbKetQua.text!.characters.count>12)
         {
+            if(lbKetQua.text!.characters.count>50)
+            {
+            lbKetQua.font=UIFont.systemFont(ofSize: 15.0)
+            }
+            else
+            {
             lbKetQua.font=UIFont.systemFont(ofSize: 30.0)
+            }
         }
         else
         {
@@ -279,9 +287,9 @@ class ViewController: UIViewController {
     
     func checkFullSize()->Bool
     {
-        if(lbKetQua.text!.characters.count<45)
+        if(lbKetQua.text!.characters.count<120)
         {
-            return true
+        return true
         }
         return false
     }
